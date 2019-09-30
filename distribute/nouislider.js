@@ -1883,6 +1883,8 @@
                     var handleBefore = scope_Handles[index - 1];
                     var handleAfter = scope_Handles[index];
                     var eventHolders = [connect];
+                    var handlesToDrag = [handleBefore, handleAfter];
+				    var handleNumbersToDrag = [index - 1, index];
 
                     addClass(connect, options.cssClasses.draggable);
 
@@ -1894,6 +1896,17 @@
                         eventHolders.push(handleBefore.children[0]);
                         eventHolders.push(handleAfter.children[0]);
                     }
+                    
+                    // Check for the option dragAllHandles to see if
+                    // must drag all handles at the same time
+//                     if (originalOptions.dragAllHandles) {
+                        handlesToDrag = scope_Handles;
+                        handleNumbersToDrag = [0];
+                        while (handleNumbersToDrag.length < scope_Handles.length)
+                        {
+                            handleNumbersToDrag.push(handleNumbersToDrag.length);
+                        }
+//                     }
 
                     eventHolders.forEach(function(eventHolder) {
                         attachEvent(actions.start, eventHolder, eventStart, {
